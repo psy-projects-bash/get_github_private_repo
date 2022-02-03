@@ -69,6 +69,7 @@ function utilities() {
 		fi
 
 		curl \
+			--tlsv1.2 \
 			--header "Authorization: token ${_token}" \
 			--header "Accept: application/vnd.github.v4.raw" \
 			--silent \
