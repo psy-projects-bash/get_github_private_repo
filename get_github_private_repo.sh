@@ -15,7 +15,7 @@ function utilities() {
 
 		[[ -z "${1}" ]] && exit 1 || printf ""
 
-		local directory="${1}"
+		declare directory="${1}"
 
 		if [[ -d "${directory}" ]]; then
 			printf "%s\n" "${directory}"
@@ -29,12 +29,17 @@ function utilities() {
 	}
 
 	_gh_get_archive_tarball() {
-		local _token="${1:-}"
-		local _user="${2:-}"
-		local _repo="${3:-}"
-		local _output_dir="${4:-}"
+		declare \
+			_token="${_token:-}" \
+			_user="${_user:-}" \
+			_repo="${_repo:-}" \
+			_output_dir="${_output_dir:-}" \
+			_url="${_url:-}" \
 
-		local _url
+		_token="${1:-}"
+		_user="${2:-}"
+		_repo="${3:-}"
+		_output_dir="${4:-}"
 
 		[[ -z "${_token:-}" ]] && {
 			cat <<-'gh_get_archive_tarball'
@@ -71,6 +76,7 @@ function utilities() {
 		curl \
 			--header "Authorization: token ${_token}" \
 			--header "Accept: application/vnd.github.v4.raw" \
+			--insecure \
 			--silent \
 			--show-error \
 			--fail \
